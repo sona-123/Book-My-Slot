@@ -15,3 +15,17 @@ A web application for managing and booking sports facilities across multiple cen
 - **Authentication**: JWT-based user login
 
 ## 📂 Project Structure
+
+## ⚙️ Setup Instructions
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/sona-123/Book-My-Slot.git
+   cd Book-My-Slot
+cd backend && npm install
+cd ../frontend && npm install
+2. Set up environment variables in .env
+3. Start the development servers:
+npm run start:backend
+npm run start:frontend
+View Bookings: /api/bookings
+Create Booking: /api/bookings/create
