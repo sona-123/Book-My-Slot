@@ -1,40 +1,27 @@
-// server.js
 const express = require('express');
-const connectDB = require('./config/db');
-const cors = require('cors');
+const mongoose = require('mongoose');
+const dotenv = require('dotenv');
 const authRoutes = require('./routes/auth');
 const centerRoutes = require('./routes/center');
-const sportRoutes = require('./routes/sport');
+const sportRoutes=require('./routes/sport');
 const courtRoutes = require('./routes/court');
-const bookingRoutes = require('./routes/booking');
+dotenv.config();
 
 const app = express();
+app.use(express.json()); // for parsing application/json
 
 // Connect to MongoDB
-connectDB();
+mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+    .then(() => console.log('MongoDB connected'))
+    .catch(err => console.error('MongoDB connection error:', err));
 
-// Middleware
-app.use(cors());
-app.use(express.json()); // To parse JSON bodies
-
-// Define a root route (optional)
-app.get('/', (req, res) => {
-    res.send('Welcome to the Sports Booking API');
-});
-
-// Routes
-app.use('/api/auth', authRoutes);
-app.use('/api/centers', centerRoutes);
-app.use('/api/sports', sportRoutes);
-app.use('/api/courts', courtRoutes);
-app.use('/api/bookings', bookingRoutes);
-
-// Start server
+// Define Routes
+app.use('/api/auth', authRoutes); // Authentication routes
+app.use('/api/center', centerRoutes); // Center routes
+app.use('/api/sport',sportRoutes);
+app.use('/api/courts', courtRoutes); 
+// Start the server
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, (err) => {
-    if (err) {
-        console.error('Error starting the server:', err);
-    } else {
-        console.log(`Server is running on port ${PORT}`);
-    }
+app.listen(PORT, () => {
+    console.log(`Server running on http://localhost:${PORT}`);
 });

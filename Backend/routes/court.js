@@ -4,7 +4,8 @@ const { createCourt, getCourtsBySport } = require('../controllers/courtControlle
 
 const router = express.Router();
 
-router.post('/', createCourt);
-router.get('/:sportId', getCourtsBySport);
+// Define the routes for creating and retrieving courts
+router.post('/createCourt', createCourt);
+router.get('/getCourts/:sportId', getCourtsBySport);
 
 module.exports = router;
